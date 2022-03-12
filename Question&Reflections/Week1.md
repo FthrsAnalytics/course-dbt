@@ -85,5 +85,7 @@ from (
 **Y**/N
 
 #### Reflection: What was most challenging/surprising in completing this week’s project?
+Creating my own mental model of what each of the elements of a dbt project are and how they relate together (source, profile, etc)
 
 #### Reflection: Is there anywhere you are still stuck or confused? Or Is there a particular part of the project where you want focused feedback from your reviewers?
+Not sure if we'll cover this later, but want to learn more about how to set up data source connections for a dbt project.
