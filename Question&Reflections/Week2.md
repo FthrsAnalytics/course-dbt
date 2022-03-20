@@ -78,10 +78,13 @@ Some additional features I would want to look into include:
 ### (Part 2) Tests
 
 #### What assumptions are you making about each model? (i.e. why are you adding each test?)
+Each identifier in the model should be unique and not null.
 
 #### Did you find any “bad” data as you added and ran tests on your models? How did you go about either cleaning the data in the dbt model or adjusting your assumptions/tests?
+Yes! I found a few zipcodes that did not have five characters.
 
 #### Your stakeholders at Greenery want to understand the state of the data each day. Explain how you would ensure these tests are passing regularly and how you would alert stakeholders about bad data getting through.
+I could write the results of these tests to it's own model and use this model to generate tests reporting each day.
 
 ## Reflection
 #### Part 1: Were you able to answer the data question asked i.e. What is our user repeat rate?
@@ -94,13 +97,15 @@ Some additional features I would want to look into include:
 **Y**/N. - I didn't create an intermediate model within each mart, but was able to successfully create within the marketing mart. 
 
 #### Part 2: Were you able to apply dbt tests to your week 1 or week 2 models?
-**Y**/N
+Y/**N**
 
 #### Reflection: What was most challenging/surprising in completing this week’s project?
 Having the flexibility to create both the requirements as well as the solution. If we were given more explicit instructions, it would have been easier to create the various models - but this way I had to understand the data more and put myself in the shoes of the various business units.
 
 #### Reflection: Is there anywhere you are still stuck or confused? Or Is there a particular part of the project where you want focused feedback from your reviewers?
 This week I want to go back and better structure / document all of the models in my project. I need a bit more experience building out full solutions to know how best to separate business logic, joins, and transformations between or in models. Should marketing have a single fact model with all the information? Or a fact model with multiple dimension models to support. I tried to build both in my project.
+
+I tried to write a test for length of zipcode, but I get the error that the test is undefined. Will post in general-and-questions-dbt, but any help greatly appreciated!
 
 #### Reflection: What are you most proud of about your project?
 Nothing really stands out to me lol. Was happy to complete all the requirements and gain some further familiarity with dbt!
