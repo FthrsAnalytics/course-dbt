@@ -2,7 +2,38 @@
 ## Short Answer
 #### What is our user repeat rate?
 ##### Repeat Rate = Users who purchased 2 or more times / users who purchased
-Repeat Rate = 
+Repeat Rate = 79.84%
+
+```sql
+with repeat_users as (
+  select u.user_id
+  , count(o.order_id)
+  
+  from dbt_joseph_y.stg_users u 
+  join dbt_joseph_y.stg_orders o on o.user_id = u.user_id
+  
+  group by u.user_id
+  
+  having count(o.order_id) > 1
+),
+
+count_repeat_users as (
+  select cast(count(repeat_users.user_id) as decimal) as NumRepeatUsers
+  
+  from repeat_users
+),
+
+count_all_users as (
+  select cast(count(distinct o.user_id) as decimal) as NumAllUsers
+  
+  from dbt_joseph_y.stg_orders o
+)
+
+
+select round(NumRepeatUsers / NumAllUsers * 100, 2) repeat_rate
+from count_repeat_users 
+full outer join count_all_users on 1=1
+```
 
 #### What are good indicators of a user who will likely purchase again? What about indicators of users who are likely NOT to purchase again? If you had more data, what features would you want to look into to answer this question?
 ##### NOTE: This is a hypothetical question vs. something we can analyze in our Greenery data set. Think about what exploratory analysis you would do to approach this question.
