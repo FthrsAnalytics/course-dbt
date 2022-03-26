@@ -2,17 +2,117 @@
 ## Short Answer
 ### (Part 1) Models
 #### What is our overall conversion rate?
-Overall Conversion Rate = ~ 79.84%
+Overall Conversion Rate = ~ 62.46%
 
 ```sql
+--session with purchases
+with purchase_sessions as (
 
+  select cast(count(distinct session_id) as decimal) CountPurchases
+  
+  from dbt_joseph_y.stg_events 
+  
+  where event_type = 'checkout'
+  ),
+  
+--all sessions
+all_sessions as (
+
+  select cast(count(distinct session_id) as decimal) CountSessions
+  
+  from dbt_joseph_y.stg_events 
+
+  )
+
+--Calculate Conversion Rate
+select round(CountPurchases/CountSessions * 100, 2) as conversion_rate
+
+from purchase_sessions
+
+full outer join all_sessions on 1=1
 ```
 
-#### What is our conversion rate by product? include:
-Insert table of conversion rate by product. Use macro.
+#### What is our conversion rate by product?
 
 ```sql
+--Product names
+with product_names as (
+  select p.product_id
+  , p.name
+  
+  from dbt_joseph_y.stg_products p
+),
 
+--Purchases of Product 
+purchase_sessions_by_product as (
+  select distinct e.session_id
+  , e.user_id
+  , e.created_at
+  , o.product_id
+  
+  from dbt_joseph_y.stg_events e
+  inner join dbt_joseph_y.stg_order_items o on o.order_id = e.order_id
+  
+  where e.event_type = 'checkout'
+  
+  order by e.session_id
+  , e.user_id
+  , e.created_at
+  , o.product_id
+  ),
+  
+--Views of Product 
+view_sessions_by_product as (
+  
+  select distinct e.session_id
+  , e.user_id
+  , e.created_at
+  , e.product_id
+  
+  from dbt_joseph_y.stg_events e
+  
+  where e.event_type = 'page_view'
+  
+  order by e.session_id
+  , e.user_id
+  , e.created_at
+  , e.product_id
+  ),
+
+--Purchases by Product
+purchases_by_product as (
+  
+  select ps.product_id
+  , count(*) NumPurchases
+  
+  from purchase_sessions_by_product ps
+  
+  group by ps.product_id
+  
+  ),
+
+--Views by Product
+views_by_product as (
+  
+  select vs.product_id
+  , count(*) NumViews
+  
+  from view_sessions_by_product vs
+  
+  group by vs.product_id
+  
+  )
+  
+select p.name ProductName
+, pp.NumPurchases
+, vp.NumViews
+, round(cast(pp.NumPurchases as decimal) / cast(vp.NumViews as decimal) * 100, 2) as Product_Conversion
+  
+from purchases_by_product pp
+join views_by_product vp on vp.product_id = pp.product_id
+join product_names p on p.product_id = pp.product_id
+  
+order by Product_Conversion desc
 ```
 
 ### (Part 2) Macros
