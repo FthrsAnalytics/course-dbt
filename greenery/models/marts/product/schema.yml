@@ -1,0 +1,38 @@
+
+version: 2
+
+models:
+  - name: fact_page_views
+    description: Event info for product views and order.
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_product_conversion
+    description: conversion rate (purchase sessions / all sessions) by product
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_overall_conversion
+    description: conversion rate (purchase sessions / all sessions)
+
+  - name: int_product_purchase_sessions
+    description: All sessions with purchase event by product, user, and date
+    columns:
+      - name: session_id
+        tests:
+          - not_null
+          - unique
+
+  - name: int_product_view_sessions
+    description: All sessions with page view of product by user, date
+    columns:
+      - name: session_id
+        tests:
+          - not_null
+          - unique

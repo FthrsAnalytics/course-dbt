@@ -4,12 +4,6 @@ version: 2
 models:
   - name: stg_addresses
     description: address stuff
-    columns: 
-      - name: zipcode
-        tests: 
-         - zipcode_five_characters:
-             config:
-              severity: warn
 
   - name: stg_events
     description: events stuff

@@ -1,0 +1,19 @@
+
+version: 2
+
+models:
+  - name: int_orders
+    description: Intermediate model that aggregates order info to the user grain.
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_user_orders
+    description: Fact model for user address, contact, and aggregated order info.
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique

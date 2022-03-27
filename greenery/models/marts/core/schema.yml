@@ -1,0 +1,28 @@
+
+version: 2
+
+models:
+# Core
+  - name: dim_products
+    description: Combines product info and aggregates order info to the product grain.
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_users
+    description: Combines user and location info.
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_shipped_orders
+    description: Promo info on orders that have been shipped or delivered.
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
