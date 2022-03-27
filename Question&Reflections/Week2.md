@@ -97,7 +97,7 @@ I could write the results of these tests to it's own model and use this model to
 **Y**/N. - I didn't create an intermediate model within each mart, but was able to successfully create within the marketing mart. 
 
 #### Part 2: Were you able to apply dbt tests to your week 1 or week 2 models?
-Y/**N**
+Y/**N** - I was not able to successfully compile my zipcode_five_characters test on my stg_addresses model.
 
 #### Reflection: What was most challenging/surprising in completing this week’s project?
 Having the flexibility to create both the requirements as well as the solution. If we were given more explicit instructions, it would have been easier to create the various models - but this way I had to understand the data more and put myself in the shoes of the various business units.
