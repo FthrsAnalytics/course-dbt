@@ -67,20 +67,17 @@ full outer join all_sessions on 1=1
 | 4cda01b9-62e2-46c5-830f-b7f262a58fb1 | Pothos              | 21           | 64       | 32.81             |
 
 ### (Part 2) Macros
-Use macro for conversion rate by product.
+Used a macro to grant reporting role access.
 
 ### (Part 3) Hooks
-```sql
-
-```
+    post-hook:
+      - "{{ grant(role='reporting') }}"
 
 ### (Part 4) Packages
-```sql
-
-```
+dbt-utils star
 
 ### (Part 5) DAG
-Simplified or improved DAG 
+![dbt-dag (1)](https://user-images.githubusercontent.com/34662783/160301814-2b69037f-49f2-4fc3-b8b5-bcd62a54928a.png)
 
 ## Reflection
 #### Part 1: Were you able to create new models to answer the data questions on conversion rate?
@@ -93,13 +90,13 @@ Simplified or improved DAG
 **Y**/N
 
 #### Part 4: Were you able to install a package? (indicate what package you used)
-Y/**N**
+**Y**/N (dbt-utils)
 
 #### Reflection: What was most challenging/surprising in completing this week’s project?
-
+Updating the syntax of grant macro for the post-hook and on-end-run grants.
 
 #### Reflection: Is there anywhere you are still stuck or confused? Or Is there a particular part of the project where you want focused feedback from your reviewers?
-
+My conversion rates by product seem to be different from other projects I have seen. I'm not sure if this is because I also brought in user and time stamp to my intermediate models to calculate these rates? I think it is the views that are different as opposed to the number of purchases.
 
 #### Reflection: What are you most proud of about your project?
-
+I'm happy to keep making minor improvements as I become more familiar with dbt and learn more as the weeks go on.
